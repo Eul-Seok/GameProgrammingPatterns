@@ -7,7 +7,7 @@
 
 
 디자인 패턴 관련해서는 아래의 사이트들을 참고하여 실습을 하고자 한다.
-http://gameprogrammingpatterns.com/contents.html
-https://refactoring.guru/ko/design-patterns/catalog
-https://boycoding.tistory.com/category/%EB%94%94%EC%9E%90%EC%9D%B8%20%ED%8C%A8%ED%84%B4?page=2
-https://ansohxxn.github.io/categories/#design-pattern
+* http://gameprogrammingpatterns.com/contents.html
+* https://refactoring.guru/ko/design-patterns/catalog
+* https://boycoding.tistory.com/category/%EB%94%94%EC%9E%90%EC%9D%B8%20%ED%8C%A8%ED%84%B4?page=2
+* https://ansohxxn.github.io/categories/#design-pattern
