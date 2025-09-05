@@ -6,6 +6,7 @@ class BaseCharacter;
 class Command_Interface
 {
 public:
+	Command_Interface() = default;
 	virtual ~Command_Interface() {}
 
 	virtual void Execute() abstract;
@@ -15,6 +16,7 @@ public:
 class Command abstract : public Command_Interface
 {
 public:
+	Command() = default;
 	virtual ~Command() {}
 
 	virtual void Init(BaseCharacter* InCharacter) = 0;
