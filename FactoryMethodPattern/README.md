@@ -36,3 +36,38 @@
 > 즉, 팩토리 메서드 패턴은 파일의 개수가 늘어나는 **구조적 복잡도**를 감수하는 대신, 위험성이 높은 **논리적 복잡도**를 낮추어 유지보수성을 향상시키는 전략을 취합니다.
 > 
 > 기본적으로 상속을 사용하기 때문에, 상속되는 클래스의 개수가 관리가 가능한 개수인지 판단한 후 사용하는 것이 좋아보입니다.
+
+---
+
+## 본 예제 프로젝트의 구조 (Structure of this Example Project)
+
+이 프로젝트는 게임에서 다양한 구성의 '몬스터 웨이브'를 생성하는 상황을 가정하여 팩토리 메서드 패턴을 구현한 실습 예제입니다.
+
+### 적용된 주요 디자인 패턴
+
+*   **팩토리 메서드 (Factory Method) 패턴**: `MonsterWaveGenerator` 계층에서 어떤 종류의 몬스터 웨이브를 생성할지 자식 클래스가 결정합니다.
+*   **오브젝트 풀 (Object Pool) 패턴**: 생성된 `Unit` 객체의 반복적인 생성/삭제 비용을 줄이고 메모리를 효율적으로 관리하기 위해 사용되었습니다.
+*   **전략 (Strategy) 패턴 (확장 제안)**: 몬스터를 '어떻게' 생성할지에 대한 로직을 캡슐화하여 팩토리 메서드가 이를 선택적으로 사용하도록 확장할 수 있습니다.
+
+### 주요 클래스 설명
+
+1.  **`Unit` 계층 (Product)**
+    *   `Unit`: `Warrior`, `Archer` 등 모든 유닛의 추상 기반 클래스(Product)입니다.
+    *   `Warrior`, `Archer`, `Wizard`: `Unit`을 상속받는 구체적인 클래스(Concrete Product)들입니다.
+
+2.  **`UnitObjectPool` 계층 (Helper)**
+    *   `ObjectPool<T>`: 어떤 객체든 재사용할 수 있도록 관리하는 범용 템플릿 클래스입니다.
+    *   `UnitObjectPool_Interface`: `Unit` 타입의 객체 풀들을 다형적으로 관리하기 위한 특화된 인터페이스입니다.
+
+3.  **`MonsterWaveGenerator` 계층 (The Factory)**
+    *   `MonsterWaveGenerator`: 오브젝트 풀을 관리하고 유닛을 생성하는 기능을 제공하는 추상 팩토리(Creator)입니다.
+    *   `CreateMonsterWave()`: 어떤 몬스터 웨이브를 생성할지 자식 클래스에서 정의하는 **팩토리 메서드**입니다.
+    *   `MonsterWaveGeneratorA`, `MonsterWaveGeneratorB`: `CreateMonsterWave()`를 오버라이드하여, 각자 다른 구성의 웨이브를 실제로 생성하는 구체적인 팩토리(Concrete Creator)입니다.
+
+### 동작 흐름
+
+1.  `main` 함수에서 `MonsterWaveGeneratorA`, `B`와 같은 구체적인 팩토리 객체를 생성합니다.
+2.  각 팩토리의 `Init()`을 호출하여 내부에 필요한 오브젝트 풀들을 준비시킵니다.
+3.  클라이언트는 `A`인지 `B`인지 구분할 필요 없이, 각 팩토리의 `CreateMonsterWave()` 팩토리 메서드를 호출합니다.
+4.  호출된 각 팩토리는 자신에게 정의된 로직에 따라 고유한 몬스터 웨이브를 생성하여 `CreatedUnitList`에 담습니다.
+5.  클라이언트는 생성된 유닛들을 가지고 게임 로직을 수행합니다.
